@@ -2,9 +2,6 @@ import requests
 import random
 import datetime
 import time
-from requests_html import HTML, HTMLSession
-from flask import Flask,render_template
-from flask import request
 import asyncio
 from multiprocessing import Pool
 from proxy_randomizer import RegisteredProviders
@@ -97,7 +94,6 @@ def main(x):
     emaildata = {'email':email_to_use,'device_id':device_id}
     emailsend = session.post("https://www.instagram.com/api/v1/accounts/send_verify_email/",data=emaildata)
     emailjson = emailsend.json()
-    print(emailjson)
     if emailjson["email_sent"] != True:
         print("no sent of email")
         return 
@@ -148,6 +144,7 @@ def main(x):
         availeble = True
     f = open("username.txt","a")
     f.write("{username:"+str(username)+"};{password:"+str(password)+"}"+str(availeble)+"\n")
+    print(test.text)
     f.close()
     session.close()
     s.close()   
@@ -156,15 +153,13 @@ def main(x):
 print("Start Creating")
 
 def Zwischen():
-    p = Pool(5)
+    p = Pool(1)
     p.map(main,"Hallo")
     print("hallo")
 
 
 if __name__ == "__main__":
-    while True:
-        Zwischen()
-        time.sleep(15)
+    Zwischen()
 
 print("ende")
 
